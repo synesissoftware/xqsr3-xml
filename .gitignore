@@ -1,0 +1,56 @@
+
+# directories (by name)
+
+/.bzr/
+/.bundle/
+/.config/
+/.git/
+/.svn/
+
+/.bundle/
+/.yardoc/
+/_yardoc/
+
+old-gems/
+
+/InstalledFiles/
+
+/build/
+/coverage/
+/doc/
+/lib/bundler/man/
+/pkg/
+/rdoc/
+/spec/reports/
+/test/tmp/
+/test/version_tmp/
+/tmp/
+/vendor/bundle/
+
+# directories (by pattern)
+
+# files (by name)
+
+.DS_Store
+.bundle
+.config
+.repl_history
+.rvmrc
+.yardoc
+_yardoc
+Gemfile.lock
+
+/spec/examples.txt
+
+# files (by pattern)
+
+*~
+.dat*
+*.b64
+*.gem
+*.rbc
+*.scc
+*.suo
+*.swp
+*.zip
+
