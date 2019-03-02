@@ -1,6 +1,8 @@
 
 puts "\nGemfile for Ruby #{RUBY_VERSION}\n"
 
+source 'https://rubygems.org'
+
 unless $Xqsr3_XML_Required_Nokogiri_VersionConditions_
 
 	$Xqsr3_XML_Required_Nokogiri_VersionConditions_	=	nil
@@ -52,4 +54,6 @@ else
 
 	gem 'nokogiri'
 end
+
+gem 'xqsr3', '~> 0.31'
 
