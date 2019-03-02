@@ -5,7 +5,7 @@
 # Purpose:      Version for xqsr3-xml library
 #
 # Created:      1st March 2019
-# Updated:      1st March 2019
+# Updated:      2nd March 2019
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
@@ -51,7 +51,7 @@ module Xqsr3
 module XML
 
 	# Current version of the Xqsr3 library
-	VERSION				=	'0.1.0'
+	VERSION				=	'0.1.0.1'
 
 	private
 	VERSION_PARTS_		=	VERSION.split(/[.]/).collect { |n| n.to_i } # :nodoc:
