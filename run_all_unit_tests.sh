@@ -6,11 +6,11 @@
 # Purpose:      Executes the unit-tests regardless of calling directory
 #
 # Created:      9th June 2011
-# Updated:      14th March 2018
+# Updated:      1st March 2019
 #
 # Author:       Matthew Wilson
 #
-# Copyright (c) Matthew Wilson, 2011
+# Copyright (c) Matthew Wilson, 2011-2019
 # All rights reserved
 #
 # Redistribution and use in source and binary forms, with or without
@@ -42,6 +42,9 @@
 #
 # ######################################################################## #
 
+
+# constants
+
 Source="${BASH_SOURCE[0]}"
 
 while [ -h "$Source" ]; do
@@ -51,6 +54,124 @@ while [ -h "$Source" ]; do
   [[ $Source != /* ]] && Source="$Dir/$Source"
 done
 Dir="$(cd -P "$( dirname "$Source" )" && pwd)"
+
+# colours
+
+if command -v tput > /dev/null; then
+
+	RbEnvClr_Blue=${FG_BLUE:-$(tput setaf 4)}
+	RbEnvClr_Red=${FG_BLUE:-$(tput setaf 1)}
+	RbEnvClr_Bold=${FD_BOLD:-$(tput bold)}
+	RbEnvClr_None=${FD_NONE:-$(tput sgr0)}
+else
+
+	RbEnvClr_Blue=
+	RbEnvClr_Red=
+	RbEnvClr_Bold=
+	RbEnvClr_None=
+fi
+
+
+# special command-line handling ('--rbenv-versions')
+# rbenv handling
+
+RunRbEnvAllVersions=
+Arguments=
+
+for arg in "$@"
+do
+
+	case "$arg" in
+
+		--rbenv-versions)
+
+			RunRbEnvAllVersions=1
+			;;
+		*)
+
+			Arguments="$Arguments $arg"
+			;;
+	esac
+done
+
+if [ ! -z "$RunRbEnvAllVersions" ]; then
+
+	if ! command -v rbenv > /dev/null; then
+
+		>&2 echo "$0: ${RbEnvClr_Red}${RbEnvClr_Bold}rbenv${RbEnvClr_None} not detected"
+		exit 1
+	fi
+
+	if [ ! -e "$Dir/.ruby-version" ];then
+
+		>&2 echo "$0: ${RbEnvClr_Red}${RbEnvClr_Bold}.ruby-version${RbEnvClr_None} file not detected"
+		exit 1
+	fi
+
+	exclusions=()
+	if [ -e "$Dir/.ruby-version-exclusions" ]; then
+
+		exclusion_lines=`cat $Dir/.ruby-version-exclusions`
+		for line in $exclusion_lines; do
+
+			exclusions+=($line)
+		done
+	fi
+
+	echo "executing command line '${RbEnvClr_Blue}${RbEnvClr_Bold}$0 $Arguments${RbEnvClr_None}' with all Ruby versions ..."
+
+	current=$(rbenv local)
+
+	#echo "current version: $current"
+
+	versions=()
+	while IFS= read -r line; do
+		versions+=("$line")
+	done < <(rbenv versions --bare)
+
+	echo "versions: ${RbEnvClr_Blue}${RbEnvClr_Bold}${versions[*]}${RbEnvClr_None}; skipped versions: ${RbEnvClr_Blue}${RbEnvClr_Bold}${exclusions[*]}${RbEnvClr_None}; current version: ${RbEnvClr_Blue}${RbEnvClr_Bold}${current}${RbEnvClr_None}"
+
+	result=0
+
+	for version in ${versions[@]}
+	do
+
+		echo
+
+		skip=
+
+		for exclusion in "${exclusions[@]}"; do
+
+			if [[ "$exclusion" == "$version" ]]; then
+
+				skip=1
+			fi
+		done
+
+		if [ "$skip" != "" ]; then
+
+			echo "skipping Ruby version ${RbEnvClr_Blue}${RbEnvClr_Bold}$version${RbEnvClr_None}:"
+		else
+
+			echo "processing Ruby version ${RbEnvClr_Blue}${RbEnvClr_Bold}$version${RbEnvClr_None}:"
+
+			echo -e "\texecuting command line '$0 $Arguments' with Ruby version $version ..."
+			rbenv local $version
+
+			if ! $0 $Arguments; then
+
+				result=1
+			fi
+		fi
+	done
+
+	rbenv local $current
+
+	exit $result
+fi
+
+
+# regular command-line handling
 
 Separate=
 DebugFlag=
@@ -63,7 +184,6 @@ do
 		--debug)
 
 			DebugFlag=--debug
-
 			;;
 
 		--help)
@@ -78,6 +198,9 @@ do
 			echo "	--debug"
 			echo "		executes Ruby interpreter in debug mode"
 			echo
+			echo "	--rbenv-versions"
+			echo "		executes this script (with all other specified arguments) for each rbenv version (except those listed in the file .ruby-version-exclusions, if present)"
+			echo
 			echo "	--separate"
 			echo "		executes each unit-test in a separate program"
 			echo
@@ -88,7 +211,6 @@ do
 		--separate)
 
 			Separate=true
-
 			;;
 
 		*)
@@ -99,6 +221,8 @@ do
 			;;
 	esac
 done
+
+# executing tests
 
 if [ -z "$Separate" ]; then
 
