@@ -1,17 +1,21 @@
 # xqsr3-xml - Authors <!-- omit in toc -->
 
 
-## Major Contributors:
+## Major Contributors
 
-* Matt Wilson ([mwsis](https://github.com/mwsis))
+| Name        | GitHub                            |
+| ----------- | --------------------------------- |
+| Matt Wilson | [mwsis](https://github.com/mwsis) |
 
 
-## Defect reports, fixes and suggestions (for which we are very grateful):
+## Defect reports, fixes and suggestions (for which we are very grateful)
 
-* \<none>
+| Name        | GitHub                            |
+| ----------- | --------------------------------- |
+| \<none>     |                                   |
+
 
 Contributions are welcomed.
-
 
 
 <!-- ########################### end of file ########################### -->
