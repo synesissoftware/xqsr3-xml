@@ -1,6 +1,11 @@
 # xqsr3-xml - Changes <!-- omit in toc -->
 
 
+## 0.1.2 - 15th August 2026
+
+T.B.C.
+
+
 ## 0.1.1 - 11th April 2019
 
 * project boilerplate;
