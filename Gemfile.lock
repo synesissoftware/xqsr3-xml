@@ -1,3 +1,10 @@
+PATH
+  remote: .
+  specs:
+    xqsr3-xml (0.1.1)
+      nokogiri (~> 1.6)
+      xqsr3 (>= 0.31.0, < 1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -18,7 +25,7 @@ GEM
     nokogiri (1.19.4-x86_64-linux-musl)
       racc (~> 1.4)
     racc (1.8.1)
-    xqsr3 (0.39.4.1)
+    xqsr3 (0.39.5)
 
 PLATFORMS
   aarch64-linux-gnu
@@ -31,8 +38,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  nokogiri
-  xqsr3 (~> 0.39, >= 0.39.4)
+  xqsr3-xml!
 
 BUNDLED WITH
    2.6.9

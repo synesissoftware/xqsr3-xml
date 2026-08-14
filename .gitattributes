@@ -21,7 +21,7 @@ Guardfile text eol=lf diff=ruby
 *.slim text
 
 # --- Lock / config ---
-Gemfile.lock text -diff
+Gemfile.lock text
 *.gemspec.lock text -diff
 *.yml text
 *.yaml text
