@@ -49,11 +49,11 @@ end
 
 if $Xqsr3_XML_Required_Nokogiri_VersionConditions_
 
-	gem 'nokogiri', *$Xqsr3_XML_Required_Nokogiri_VersionConditions_
+	gem "nokogiri", *$Xqsr3_XML_Required_Nokogiri_VersionConditions_
 else
 
-	gem 'nokogiri'
+	gem "nokogiri"
 end
 
-gem 'xqsr3', '~> 0.31'
+gem "xqsr3", [ '~> 0.39', '>= 0.39.4' ]
 
