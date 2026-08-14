@@ -39,6 +39,13 @@ END_DESC
 
   spec.required_ruby_version = [ '>= 2.0' ]
 
+  spec.metadata = {
+    'bug_tracker_uri' => 'https://github.com/synesissoftware/xqsr3-xml/issues',
+    'changelog_uri' => 'https://github.com/synesissoftware/xqsr3-xml/blob/master/CHANGES.md',
+    'homepage_uri' => 'https://github.com/synesissoftware/xqsr3-xml',
+    'source_code_uri' => 'https://github.com/synesissoftware/xqsr3-xml',
+  }
+
   spec.files        = Dir[ 'Rakefile', '{bin,examples,lib,man,spec,test}/**/*', 'README*', 'LICENSE*' ] & `git ls-files -z`.split("\0")
 
   spec.add_runtime_dependency "xqsr3", [ '>= 0.39.5', '< 1.0' ]
