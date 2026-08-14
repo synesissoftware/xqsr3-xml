@@ -1,4 +1,4 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:         lib/xqsr3/xml/version.rb
 #

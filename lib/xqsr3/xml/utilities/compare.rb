@@ -1,4 +1,4 @@
-
+# frozen_string_literal: true
 # ######################################################################## #
 # File:         lib/xqsr3/xml/_utilities/compare.rb
 #
@@ -6,7 +6,7 @@
 #               module
 #
 # Created:      30th July 2017
-# Updated:      16th August 2018
+# Updated:      15th August 2026
 #
 # Home:         http://github.com/synesissoftware/xqsr3
 #
