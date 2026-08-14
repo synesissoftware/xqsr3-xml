@@ -1,4 +1,4 @@
-# xqsr3-xml
+# xqsr3-xml <!-- omit in toc -->
 e**X**tensions by fine **Q**uantum for **S**tandard **R**uby and **3**rd-party libraries, for **XML**
 
 [![Gem Version](https://badge.fury.io/rb/xqsr3-xml.svg)](https://badge.fury.io/rb/xqsr3-xml)

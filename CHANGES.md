@@ -1,4 +1,4 @@
-# **xqsr3-xml.Ruby** Changes
+# xqsr3-xml - Changes <!-- omit in toc -->
 
 ## 0.1.1 - 11th April 2019
 
