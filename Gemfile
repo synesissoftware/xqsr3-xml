@@ -41,7 +41,13 @@ unless $Xqsr3_XML_Required_Nokogiri_VersionConditions_
 		end
 	else
 
-		raise 'Invalid Ruby version: ' + RUBY_VERSION
+		unless RUBY_VERSION_parts_[0] >= 3
+
+			raise 'Invalid Ruby version: ' + RUBY_VERSION
+		end
+
+		# leave $Xqsr3_XML_Required_Nokogiri_VersionConditions_ as nil
+		# so an unconstrained modern nokogiri is selected
 	end
 end
 
