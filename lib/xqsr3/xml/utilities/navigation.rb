@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 # ######################################################################## #
-# File:         lib/xqsr3/xml/_utilities/navigation.rb
+# File:     lib/xqsr3/xml/_utilities/navigation.rb
 #
-# Purpose:      Definition of the ::Xqsr3::XML::Utilities::Navigation
-#               module
+# Purpose:  Definition of the ::Xqsr3::XML::Utilities::Navigation module
 #
-# Created:      7th August 2018
-# Updated:      15th August 2026
+# Created:  7th August 2018
+# Updated:  19th August 2026
 #
-# Home:         http://github.com/synesissoftware/xqsr3
+# Home:     http://github.com/synesissoftware/xqsr3
 #
-# Author:       Matthew Wilson
+# Author:   Matthew Wilson
 #
-# Copyright (c) 2018, Matthew Wilson and Synesis Software
+# Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
+# Copyright (c) 2018-2019, Matthew Wilson and Synesis Software
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -61,42 +61,42 @@ module Utilities
 
 module Navigation
 
-	module Internal_Compare_
+  module Internal_Compare_
 
-		extend ::Xqsr3::Quality::ParameterChecking
+    extend ::Xqsr3::Quality::ParameterChecking
 
-		def self.get_descendants node
+    def self.get_descendants node
 
-			descendants	=	[]
+      descendants = []
 
-			node.children.each do |child|
+      node.children.each do |child|
 
-				descendants	<<	child
+        descendants << child
 
-				descendants	+=	self.get_descendants child
-			end
+        descendants += self.get_descendants child
+      end
 
-			descendants
-		end
-	end # module Internal_Compare_
+      descendants
+    end
+  end # module Internal_Compare_
 
-	def self.included receiver
+  def self.included receiver
 
-		def receiver.get_descendants node
+    def receiver.get_descendants node
 
-			Internal_Compare_.get_descendants node
-		end
-	end
+      Internal_Compare_.get_descendants node
+    end
+  end
 
-	def self.get_descendants node
+  def self.get_descendants node
 
-		Internal_Compare_.get_descendants node
-	end
+    Internal_Compare_.get_descendants node
+  end
 
-	def get_descendants
+  def get_descendants
 
-		Internal_Compare_.get_descendants self
-	end
+    Internal_Compare_.get_descendants self
+  end
 end # module Navigation
 
 end # module Utilities

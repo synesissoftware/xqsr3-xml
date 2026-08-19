@@ -2,10 +2,18 @@
 
 source "https://rubygems.org"
 
+# Suppress lockfile on Bundler 4+ (gem: do not pin the graph). No-op on
+# Bundler that lacks the DSL (Ruby 2.x CI). Do not combine with
+# ruby/setup-ruby `bundler-cache: true` — that action cats Gemfile.lock
+# after `bundle lock` and fails when no file is written (Windows 3.2+,
+# where setup-ruby installs Bundler ~> 4).
+lockfile false if respond_to?(:lockfile)
+
 gemspec
 
 # Nokogiri version constraints by Ruby version (override gemspec for older MRI).
-unless $Xqsr3_XML_Required_Nokogiri_VersionConditions_
+# Each MRI line is pinned to the last Nokogiri series that still supports it.
+unless defined?($Xqsr3_XML_Required_Nokogiri_VersionConditions_)
 
   $Xqsr3_XML_Required_Nokogiri_VersionConditions_ = nil
 
@@ -37,19 +45,43 @@ unless $Xqsr3_XML_Required_Nokogiri_VersionConditions_
     when 2
 
       $Xqsr3_XML_Required_Nokogiri_VersionConditions_ = [ '~> 1.9.1' ]
-    else
+    when 3, 4
 
       $Xqsr3_XML_Required_Nokogiri_VersionConditions_ = [ '~> 1.10.1' ]
+    when 5
+
+      $Xqsr3_XML_Required_Nokogiri_VersionConditions_ = [ '>= 1.10.1', '< 1.13' ]
+    when 6
+
+      $Xqsr3_XML_Required_Nokogiri_VersionConditions_ = [ '>= 1.10.1', '< 1.14' ]
+    when 7
+
+      $Xqsr3_XML_Required_Nokogiri_VersionConditions_ = [ '>= 1.10.1', '< 1.16' ]
+    else
+
+      raise "Invalid Ruby version: " + RUBY_VERSION
+    end
+  when 3
+
+    case RUBY_VERSION_parts_[1]
+    when 0
+
+      $Xqsr3_XML_Required_Nokogiri_VersionConditions_ = [ '>= 1.6', '< 1.18' ]
+    when 1
+
+      $Xqsr3_XML_Required_Nokogiri_VersionConditions_ = [ '>= 1.6', '< 1.19' ]
+    else
+
+      # 3.2+: leave nil for unconstrained modern nokogiri
     end
   else
 
-    unless RUBY_VERSION_parts_[0] >= 3
+    unless RUBY_VERSION_parts_[0] >= 4
 
       raise "Invalid Ruby version: " + RUBY_VERSION
     end
 
-    # leave $Xqsr3_XML_Required_Nokogiri_VersionConditions_ as nil
-    # so an unconstrained modern nokogiri is selected
+    # 4+: leave nil for unconstrained modern nokogiri
   end
 end
 
