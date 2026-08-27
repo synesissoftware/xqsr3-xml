@@ -83,8 +83,15 @@ jobs:
         # and fails on Windows 3.2+ (setup-ruby installs Bundler ~> 4).
         bundler-cache: false
 
+    - name: Show Ruby platform
+      run: ruby -e "puts Gem::Platform.local.to_s"
+
+    - name: Install MSYS2 UCRT libraries
+      if: ${{ matrix.os == 'windows-latest' && matrix.ruby-version == 'ucrt' }}
+      run: ridk exec pacman -S --noconfirm mingw-w64-ucrt-x86_64-libxml2 mingw-w64-ucrt-x86_64-libxslt
+
     - name: Install gems
-      run: bundle install
+      run: bundle install --verbose
 
     - name: Show Ruby version
       run: ruby -v
