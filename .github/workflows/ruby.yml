@@ -88,7 +88,12 @@ jobs:
 
     - name: Install MSYS2 UCRT libraries
       if: ${{ matrix.os == 'windows-latest' && matrix.ruby-version == 'ucrt' }}
-      run: ridk exec pacman -S --noconfirm mingw-w64-ucrt-x86_64-libxml2 mingw-w64-ucrt-x86_64-libxslt
+      run: |
+        if command -v ridk >/dev/null 2>&1; then
+          ridk exec pacman -S --noconfirm mingw-w64-ucrt-x86_64-libxml2 mingw-w64-ucrt-x86_64-libxslt || true
+        else
+          echo "ridk not found; skipping MSYS2 UCRT library install"
+        fi
 
     - name: Install gems
       run: bundle install --verbose
