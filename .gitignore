@@ -1,57 +1,57 @@
-
 # directories (by name)
 
+/.bundle/
 /.bzr/
-/.bundle/
 /.config/
-/.git/
 /.svn/
-
-/.bundle/
+/.vscode/
 /.yardoc/
+
+/_build/
 /_yardoc/
 
-old-gems/
-
 /InstalledFiles/
-
 /build/
 /coverage/
 /doc/
 /lib/bundler/man/
+/old-gems/
 /pkg/
 /rdoc/
+/scratch/
 /spec/reports/
 /test/tmp/
 /test/version_tmp/
 /tmp/
 /vendor/bundle/
 
+
 # directories (by pattern)
+
 
 # files (by name)
 
 .DS_Store
-.bundle
-.config
 .repl_history
 .ruby-version
 .rvmrc
-.yardoc
-_yardoc
+
 Gemfile.lock
 
 /spec/examples.txt
 
+
 # files (by pattern)
 
 *~
+*.*~
 .dat*
 *.b64
+*.bridgesupport
 *.gem
 *.rbc
 *.scc
 *.suo
 *.swp
+*.tmp
 *.zip
-
