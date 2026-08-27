@@ -62,7 +62,7 @@ jobs:
           - os: ubuntu-latest
             ruby-version: '2.0'
           - os: windows-latest
-            ruby-version: mingw
+            ruby-version: ucrt
 
     runs-on: ${{ matrix.os }}
 
