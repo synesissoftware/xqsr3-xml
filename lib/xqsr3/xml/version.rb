@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 # ######################################################################## #
-# File:         lib/xqsr3/xml/version.rb
+# File:     lib/xqsr3/xml/version.rb
 #
-# Purpose:      Version for xqsr3-xml library
+# Purpose:  Version for xqsr3-xml library
 #
-# Created:      1st March 2019
-# Updated:      15th August 2026
+# Created:  1st March 2019
+# Updated:  19th August 2026
 #
-# Home:         http://github.com/synesissoftware/xqsr3
+# Home:     https://github.com/synesissoftware/xqsr3-xml
 #
-# Author:       Matthew Wilson
+# Author:   Matthew Wilson
 #
 # Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
 # Copyright (c) 2019, Matthew Wilson and Synesis Software
@@ -51,22 +51,20 @@
 module Xqsr3
 module XML
 
-	# Current version of the Xqsr3 library
-	VERSION				=	'0.1.2'
+  # Current version of the xqsr3-xml library
+  VERSION           = '0.1.3'
 
-	private
-	VERSION_PARTS_		=	VERSION.split(/[.]/).collect { |n| n.to_i } # :nodoc:
-	public
-	# Major version of the Xqsr3 library
-	VERSION_MAJOR		=	VERSION_PARTS_[0] # :nodoc:
-	# Minor version of the Xqsr3 library
-	VERSION_MINOR		=	VERSION_PARTS_[1] # :nodoc:
-	# Revision version of the Xqsr3 library
-	VERSION_REVISION	=	VERSION_PARTS_[2] # :nodoc:
+  private
+  VERSION_PARTS_    = VERSION.split(/[.]/).collect { |n| n.to_i } # :nodoc:
+  public
+  # Major version of the xqsr3-xml library
+  VERSION_MAJOR     = VERSION_PARTS_[0] # :nodoc:
+  # Minor version of the xqsr3-xml library
+  VERSION_MINOR     = VERSION_PARTS_[1] # :nodoc:
+  # Revision version of the xqsr3-xml library
+  VERSION_REVISION  = VERSION_PARTS_[2] # :nodoc:
 
 end # module XML
 end # module Xqsr3
 
 # ############################## end of file ############################# #
-
-

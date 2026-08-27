@@ -7,7 +7,7 @@
 
 #
 # Created: 15th August 2026
-# Updated: 15th August 2026
+# Updated: 19th August 2026
 #
 
 name: Ruby
@@ -18,6 +18,7 @@ on:
       - master
       - dev
       - boilerplate
+      - bp-2
       - idiomatic
       - rc1
       - rc2
@@ -61,7 +62,7 @@ jobs:
           - os: ubuntu-latest
             ruby-version: '2.0'
           - os: windows-latest
-            ruby-version: mingw
+            ruby-version: ucrt
 
     runs-on: ${{ matrix.os }}
 
@@ -70,13 +71,59 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Remove Gemfile.lock
+      shell: bash
       run: rm -f Gemfile.lock
 
     - name: Set up Ruby v${{ matrix.ruby-version }}
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+        # Bundler 4 honours Gemfile `lockfile false`, so no Gemfile.lock
+        # is written. bundler-cache cats that file after `bundle lock`
+        # and fails on Windows 3.2+ (setup-ruby installs Bundler ~> 4).
+        bundler-cache: false
+
+    - name: Show Ruby platform
+      run: ruby -e "puts Gem::Platform.local.to_s"
+
+    - name: Install MSYS2 UCRT libraries
+      if: ${{ matrix.os == 'windows-latest' && matrix.ruby-version == 'ucrt' }}
+      run: |
+        pacman_pkgs="mingw-w64-ucrt-x86_64-libxml2 mingw-w64-ucrt-x86_64-libxslt mingw-w64-ucrt-x86_64-zlib mingw-w64-ucrt-x86_64-libiconv mingw-w64-ucrt-x86_64-pkgconf"
+
+        if command -v pacman >/dev/null 2>&1; then
+          pacman -S --noconfirm ${pacman_pkgs} || true
+        elif command -v ridk >/dev/null 2>&1; then
+          ridk exec pacman -S --noconfirm ${pacman_pkgs} || true
+        else
+          echo "pacman/ridk not found; skipping MSYS2 UCRT library install"
+        fi
+
+    - name: Install gems
+      run: |
+        if [ "${{ matrix.os }}" = "windows-latest" ] && [ "${{ matrix.ruby-version }}" = "ucrt" ]; then
+          platform="$(ruby -e "print Gem::Platform.local.to_s")"
+          echo "Gem::Platform.local: ${platform}"
+
+          # Nokogiri ships native gems for x64-mingw-ucrt; if the platform doesn't
+          # match, fall back to system-library builds.
+          # We still force system libraries here because the packaged libiconv
+          # download can fail on CI (502 from upstream), breaking installation.
+          echo "Configuring Bundler to build Nokogiri from system libraries"
+          bundle config set build.nokogiri --use-system-libraries
+        fi
+
+        set +e
+        bundle install --verbose > bundle-install.log 2>&1
+        bundle_status=$?
+        set -e
+        if [ "${bundle_status}" != "0" ]; then
+          echo "bundle install failed with exit code ${bundle_status}"
+          echo "---- bundle-install.log (tail) ----"
+          tail -n 200 bundle-install.log || true
+          echo "---- end tail ----"
+        fi
+        exit "${bundle_status}"
 
     - name: Show Ruby version
       run: ruby -v
@@ -102,13 +149,17 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Remove Gemfile.lock
+      shell: bash
       run: rm -f Gemfile.lock
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.3'
-        bundler-cache: true
+        ruby-version: '3.4'
+        bundler-cache: false
+
+    - name: Install gems
+      run: bundle install
 
     - name: Show Ruby version
       run: ruby -v
