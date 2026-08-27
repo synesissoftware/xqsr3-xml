@@ -103,10 +103,10 @@ jobs:
 
           # Nokogiri ships native gems for x64-mingw-ucrt; if the platform doesn't
           # match, fall back to system-library builds.
-          if [ "${platform}" != "x64-mingw-ucrt" ]; then
-            echo "Configuring Bundler to build Nokogiri from system libraries"
-            bundle config set build.nokogiri --use-system-libraries
-          fi
+          # We still force system libraries here because the packaged libiconv
+          # download can fail on CI (502 from upstream), breaking installation.
+          echo "Configuring Bundler to build Nokogiri from system libraries"
+          bundle config set build.nokogiri --use-system-libraries
         fi
 
         set +e
