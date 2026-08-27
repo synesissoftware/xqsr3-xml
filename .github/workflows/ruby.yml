@@ -109,9 +109,8 @@ jobs:
           fi
         fi
 
-        set -o pipefail
-        bundle install --verbose 2>&1 | tee bundle-install.log
-        bundle_status=${PIPESTATUS[0]}
+        bundle install --verbose > bundle-install.log 2>&1
+        bundle_status=$?
         if [ "${bundle_status}" != "0" ]; then
           echo "bundle install failed with exit code ${bundle_status}"
           echo "---- bundle-install.log (tail) ----"
