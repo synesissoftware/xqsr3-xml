@@ -18,6 +18,7 @@ on:
       - master
       - dev
       - boilerplate
+      - bp-2
       - idiomatic
       - rc1
       - rc2
