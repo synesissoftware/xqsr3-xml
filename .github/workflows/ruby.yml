@@ -68,7 +68,7 @@ jobs:
 
     steps:
     - name: Checking out code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
 
     - name: Remove Gemfile.lock
       shell: bash
@@ -146,7 +146,7 @@ jobs:
 
     steps:
     - name: Checking out code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
 
     - name: Remove Gemfile.lock
       shell: bash
