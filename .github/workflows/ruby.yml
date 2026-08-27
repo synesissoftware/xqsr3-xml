@@ -96,7 +96,20 @@ jobs:
         fi
 
     - name: Install gems
-      run: bundle install --verbose
+      run: |
+        if [ "${{ matrix.os }}" = "windows-latest" ] && [ "${{ matrix.ruby-version }}" = "ucrt" ]; then
+          platform="$(ruby -e "print Gem::Platform.local.to_s")"
+          echo "Gem::Platform.local: ${platform}"
+
+          # Nokogiri ships native gems for x64-mingw-ucrt; if the platform doesn't
+          # match, fall back to system-library builds.
+          if [ "${platform}" != "x64-mingw-ucrt" ]; then
+            echo "Configuring Bundler to build Nokogiri from system libraries"
+            bundle config set build.nokogiri --use-system-libraries
+          fi
+        fi
+
+        bundle install --verbose
 
     - name: Show Ruby version
       run: ruby -v
