@@ -7,7 +7,7 @@
 
 #
 # Created: 15th August 2026
-# Updated: 19th August 2026
+# Updated: 28th August 2026
 #
 
 name: Ruby
@@ -18,7 +18,6 @@ on:
       - master
       - dev
       - boilerplate
-      - bp-2
       - idiomatic
       - rc1
       - rc2
