@@ -1,6 +1,14 @@
 # xqsr3-xml - Changes <!-- omit in toc -->
 
 
+## 0.1.4 - 28th August 2026
+
+* removed an unused local variable from the navigation unit test so the warning-enabled test run is clean;
+* **.github/workflows/ruby.yml**: replaced the obsolete **bp-2** push branch with **warnings** and updated its revision date;
+* **xqsr3-xml.gemspec**: centralised project URLs and updated source-code metadata to avoid a duplicate-URI warning when building the gem;
+* updated the library version to **0.1.4**;
+
+
 ## 0.1.3 - 19th August 2026
 
 * converted **lib/** and **test/** Ruby sources from tab indent to 2-space indent;
