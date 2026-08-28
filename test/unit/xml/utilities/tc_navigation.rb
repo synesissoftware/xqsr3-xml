@@ -30,7 +30,6 @@ class Test_Xqsr3_XML_Utilities_Navigation < Test::Unit::TestCase
 END_OF_rhs_doc
 
     xml   = ::Nokogiri.XML(xml_s)
-    doc   = xml.children.first
 
     descs = self.class.get_descendants xml.children.first
 
