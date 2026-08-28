@@ -4,7 +4,7 @@
 # Purpose:  Gemspec for xqsr3-xml library
 #
 # Created:  1st March 2019
-# Updated:  19th August 2026
+# Updated:  28th August 2026
 #
 # ######################################################################## #
 
@@ -46,7 +46,7 @@ END_DESC
     'bug_tracker_uri' => "#{PROJECT_URL}/issues",
     'changelog_uri' => "#{PROJECT_URL}/blob/master/CHANGES.md",
     'homepage_uri' => PROJECT_URL,
-    'source_code_uri' => PROJECT_URL,
+    'source_code_uri' => "#{PROJECT_URL}/tree/master",
   }
 
   spec.files = Dir[
